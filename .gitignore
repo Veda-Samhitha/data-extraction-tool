@@ -1,0 +1,20 @@
+# === Node.js (Frontend) ===
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.next/
+frontend/.DS_Store
+
+# === Python (Backend) ===
+olmocr-backend/__pycache__/
+olmocr-backend/venv/
+olmocr-backend/*.pyc
+olmocr-backend/.env
+olmocr-backend/olmocr-7b-0225-preview/
+
+# === General ===
+.env
+.DS_Store
+*.log
+*.zip
+*.tmp
