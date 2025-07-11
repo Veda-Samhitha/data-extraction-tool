@@ -3,9 +3,11 @@ import axios from 'axios';
 
 interface Props {
   onUpload: (data: any) => void;
+  isProcessing: boolean;
+  onReset: () => void;
 }
 
-export default function UploadForm({ onUpload }: Props) {
+const UploadForm: React.FC<Props> = ({ onUpload, isProcessing, onReset }) => {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,15 +43,29 @@ export default function UploadForm({ onUpload }: Props) {
 
   return (
     <div className="bg-white p-4 rounded shadow-md">
-      <input type="file" onChange={handleFileChange} accept=".pdf,image/*" />
+      <input 
+        type="file" 
+        onChange={handleFileChange} 
+        accept=".pdf,image/*" 
+        disabled={isProcessing}
+      />
       <button
         onClick={handleUpload}
-        disabled={uploading}
-        className="ml-3 px-4 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+        disabled={uploading || isProcessing}
+        className="ml-3 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:bg-indigo-300"
       >
         {uploading ? 'Uploading...' : 'Upload'}
+      </button>
+      <button
+        onClick={onReset}
+        disabled={isProcessing}
+        className="ml-3 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 disabled:bg-gray-300"
+      >
+        Reset
       </button>
       {error && <p className="text-red-600 mt-2">{error}</p>}
     </div>
   );
-}
+};
+
+export default UploadForm;
