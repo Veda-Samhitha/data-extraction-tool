@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@react-google-maps/api": "^2.20.7",
     "edge": "^7.10.1",
     "node": "^24.4.0",
     "react-flow-renderer": "^10.3.17",

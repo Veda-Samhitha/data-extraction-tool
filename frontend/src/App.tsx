@@ -101,7 +101,6 @@
 // }
 
 // export default App;
-
 import React, { useState, useEffect } from 'react';
 import UploadForm from './components/uploadform';
 import PipelineFlow from './components/PipelineFlow';
@@ -114,7 +113,7 @@ function App() {
   const handleUpload = (uploadedData: any) => {
     setData(uploadedData);
     setIsProcessing(false);
-    setPipelineTrigger(true); // 🔁 Trigger pipeline flow animation
+    setPipelineTrigger(true);
   };
 
   const handleReset = () => {
@@ -123,7 +122,6 @@ function App() {
     setPipelineTrigger(false);
   };
 
-  // Optional: reset the trigger to allow reuse
   useEffect(() => {
     if (pipelineTrigger) {
       const timer = setTimeout(() => setPipelineTrigger(false), 2000);
@@ -155,6 +153,7 @@ function App() {
             <p><strong>Emails:</strong> {data.entities?.emails?.join(', ') || 'None'}</p>
             <p><strong>Dates:</strong> {data.entities?.dates?.join(', ') || 'None'}</p>
             <p><strong>Phones:</strong> {data.entities?.phones?.join(', ') || 'None'}</p>
+            <p><strong>Addresses:</strong> {data.entities?.addresses?.join(', ') || 'None'}</p>
           </div>
 
           {data.formFields?.length > 0 && (
@@ -168,9 +167,9 @@ function App() {
             </div>
           )}
 
-          {data.table?.headers && data.table?.rows && (
-            <div className="mt-4">
-              <h3 className="text-lg font-semibold">Extracted Table</h3>
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold">Extracted Table</h3>
+            {data.table?.headers && data.table?.rows ? (
               <div className="overflow-x-auto border rounded my-2">
                 <table className="min-w-full table-auto text-sm border-collapse border border-gray-300">
                   <thead>
@@ -191,8 +190,10 @@ function App() {
                   </tbody>
                 </table>
               </div>
-            </div>
-          )}
+            ) : (
+              <p className="text-sm text-gray-600">Table: None</p>
+            )}
+          </div>
 
           <details className="mt-6">
             <summary className="cursor-pointer font-semibold text-indigo-700">Full JSON Response</summary>
@@ -200,8 +201,6 @@ function App() {
               {JSON.stringify(data, null, 2)}
             </pre>
           </details>
-
-          
         </div>
       )}
 
